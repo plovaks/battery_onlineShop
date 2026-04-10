@@ -1,0 +1,39 @@
+.about__page{
+    margin-top: 209px;
+    margin-bottom: 200px;
+}
+
+.about__blocks{
+    display:flex;
+    gap:95px;
+}
+
+.about__title{
+    text-align: center;
+    color:#5579F6;
+    font-size:40px;
+    margin-bottom: 88px;
+}
+
+.about__blocks > div:nth-child(2) .aboutUs__desc {
+    border: 2px #549AEA solid;
+}
+
+.about__blocks > div:nth-child(2) .aboutUs__pros {
+    color:#766A00;
+    min-width: 191px;
+    height: 30px;
+    right: 85px;
+    top:100px;
+}
+
+.about__blocks > div:nth-child(2) {
+    top:100px;
+    transform: translateY(103px);
+}
+
+.about__blocks > div:nth-child(3) .aboutUs__pros{
+    width: 180px;
+    right:41px;
+   
+}

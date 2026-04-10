@@ -1,0 +1,14 @@
+.filter__btn{
+    width: 194px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 9px;
+    height: 38px;
+    background-color: transparent;
+    border: 1px #5579F6 solid;
+    border-radius: 15px;
+    margin-top: 4px;
+    color:black;
+    font-size: 14px;
+}

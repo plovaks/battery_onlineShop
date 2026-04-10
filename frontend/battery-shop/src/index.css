@@ -1,0 +1,45 @@
+*{
+  background: none;
+}
+
+h1,h2,h3,h4,p,div,button,nav{
+  border:none;
+  margin: 0;
+  padding: 0;
+}
+
+html{
+  background-color: #FFFEFC;
+  margin: 0;
+  padding-inline: 116px;
+  font-family: 'Montserrat', 'sans-serif';
+}
+
+.btn{
+  padding: 18px 45px;
+  border-radius:17px;
+  color:#FFFEFC;
+  background-color: #F79574;
+  font-family: 'Montserrat', 'sans-serif';
+  font-size: 25px;
+  font-weight: 400;
+  display:flex;
+  text-align: center;
+  align-items: center;
+  gap:20px;
+  cursor: pointer;
+}
+
+ul{
+  list-style: none;
+}
+
+.icon{
+  width: 29px;
+  height: 29px;
+}
+
+a{
+  text-decoration: none;
+  color:black;
+}

@@ -1,0 +1,80 @@
+.battery__container{
+    margin-block: 50px;
+}
+
+.battery__specs{
+    max-width: 841px;
+    max-height: 520px;
+    background-color:#5483EA ;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap:50px;
+    padding: 34px 50px;
+}
+.battery__images{
+    display: flex;
+    flex-direction: column;
+    gap:25px;
+    max-width: 398px;
+}
+
+.battery__images .battery__mainImg{
+    width: 100%;
+    max-height: 348px;
+    border-radius: 32px;
+    object-fit: contain;
+}
+
+.battery__imgArr{
+    display: flex;
+    max-width: 398px;
+    justify-content: space-between;
+    
+   
+}
+
+.battery__optionalImg{
+    width: 92px;
+    height: 78px;
+    border-radius: 15px;
+     object-fit: contain;
+}
+
+.battery__info{
+    display: flex;
+    flex-direction: column;
+    gap:23px;
+    max-width: 281px;
+    color:#FFFEFC ;
+}
+
+.battery__info .battery__title{
+    font-size: 30px;
+    font-weight: 700;
+
+}
+
+.battery__desc{
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    gap:9px;
+}
+
+.battery__desc > p{
+    font-size: 16px;
+}
+
+.battery__sales{
+    background-color: #F9F9F9;
+    color:#5483EA;
+    font-size: 20px;
+    font-weight: 600;
+    height: 55px;
+    width: 188px;
+}
+
+.battery__sales > img{
+    width: 25px;
+}
