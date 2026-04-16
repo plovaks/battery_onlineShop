@@ -1,15 +1,12 @@
 .item {
     display: grid;
-    grid-template-columns: 80px 2fr 1fr 1fr 1fr 100px 50px;
+    grid-template-columns: 80px 2fr 1fr 1fr 1fr 100px 45px;
     align-items: center;
     background-color: #ECF5FF;
     padding: 7px 40px;
     gap: 15px; 
     text-align: center; 
     cursor:pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 1;
 }
 
 .item:hover{
@@ -32,10 +29,6 @@
     justify-self: center;
 }
 
-.item:nth-child(even) {
-    background-color: #F1F1F1;
-}
 
-.item__characteristics {
-    display: contents; 
-}
+
+

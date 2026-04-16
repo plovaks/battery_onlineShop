@@ -1,13 +1,13 @@
-import React, {useState, useEffect} from "react";
+import {Link, useLocation} from "react-router-dom"
+import {React, useState, useEffect} from "react"
 import CatalogItem from "../../components/CatalogItem/CatalogItem";
 import './Catalog.css'
 import Filter from "../../components/Filters/Filter";
-import BatteryPage from "../BatteryPage/BatteryPage";
 const SERVER_URL = 'http://localhost:3000';
-
+import AddToCart from "../../components/AddToCart/AddToCart";
 export default function Catalog(){
     const [items, setItems] = useState([]);
-    
+    const location = useLocation();
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -49,7 +49,7 @@ export default function Catalog(){
     ]
     
     return(
-        <div className="catalog">
+        <div className="catalog" id='catalog'>
             <h1 className="catalog__title">КАТАЛОГ ТОВАРОВ</h1>
             <div className="catalog__filters">
                 {filters.map(filter => {
@@ -73,30 +73,18 @@ export default function Catalog(){
             <div className="catalog__items">
                  {items.map(item => { 
                     return(
-                        <CatalogItem 
-                            key={item.id}
-                            img={item.images?.length > 0 ? `${SERVER_URL}${item.images[0].url}` : ''}
-                            name={item.model + " " + item.name} 
-                            capcity={item.specs[0].value}
-                            voltage={item.specs[2].value}
-                            resistance={item.specs[1].value}
-                            price={item.price}
-                        />) 
+                        <Link to={`/product/${item.id}` }  key={item.id} state={{ background: location }}>
+                            <CatalogItem 
+                                img={item.images?.length > 0 ? `${SERVER_URL}${item.images[0].url}` : ''}
+                                name={item.model + " " + item.name} 
+                                capcity={item.specs[0].value}
+                                voltage={item.specs[2].value}
+                                resistance={item.specs[1].value}
+                                price={item.price}
+                            />
+                        </Link>
+                        ) 
                 })}
-            </div>
-            <div className="battery__item">
-                {items.slice(0,1).map(item => (
-                    <BatteryPage
-
-                        key={item.id}
-                        mainImg={item.images?.length > 0 ? `${SERVER_URL}${item.images[0].url}` : ''}
-                        images={item.images}
-                        title="Аккумулятор Dmegc 50e 21700"
-                        model="Dmegc 50e"
-                        voltage="3В"
-                        power="21"
-                    />
-                ))}
             </div>
         </div>
     )

@@ -1,0 +1,19 @@
+.order{
+    display: flex;
+    align-items: center;
+    gap:55px;
+}
+
+.order__price{
+    display: flex;
+    align-items: center;
+    gap:2px;
+    color:#4F77F1;
+    font-weight: 700;
+}
+
+.order__name{
+    font-size: 20px;
+    font-weight: 500;
+    
+}

@@ -38,3 +38,13 @@
     align-items: center;
     margin-block: 20px;
 }
+
+.catalog__items > a {
+    display: block;           
+    text-decoration: none;    
+    color: inherit;          
+}
+
+.catalog__items > a:nth-child(even) .item {
+    background-color: #F1F1F1;
+}

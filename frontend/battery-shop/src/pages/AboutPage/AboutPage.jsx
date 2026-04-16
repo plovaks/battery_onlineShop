@@ -28,7 +28,7 @@ export default function AboutPage(){
 
     return(
        
-        <main className="about__page">
+        <main id="about" className="about__page">
              <h1 className="about__title">НАШИ ПРЕИМУЩЕСТВА</h1>
              <div className="about__blocks">
                 {blocksData.map(block => (

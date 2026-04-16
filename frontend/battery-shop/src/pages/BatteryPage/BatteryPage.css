@@ -1,80 +1,131 @@
-.battery__container{
-    margin-block: 50px;
-}
 
 .battery__specs{
-    max-width: 841px;
+    max-width: 700px;
     max-height: 520px;
     background-color:#5483EA ;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    gap:50px;
-    padding: 34px 50px;
+    gap:10px;
+    padding: 25px;
 }
 .battery__images{
     display: flex;
     flex-direction: column;
-    gap:25px;
-    max-width: 398px;
+    gap:15px;
+    width: 260px;
+    flex-shrink: 0;
+    align-items: flex-start;
 }
 
 .battery__images .battery__mainImg{
     width: 100%;
-    max-height: 348px;
-    border-radius: 32px;
-    object-fit: contain;
+    height: 225px;
+    border-radius: 20px;
+    object-fit: cover;
 }
 
 .battery__imgArr{
     display: flex;
-    max-width: 398px;
-    justify-content: space-between;
-    
-   
+    justify-content: flex-start;
+    gap:10px;
 }
 
 .battery__optionalImg{
-    width: 92px;
-    height: 78px;
-    border-radius: 15px;
-     object-fit: contain;
+    width: 55px;  
+    height: 55px; 
+    border-radius: 8px;
+    object-fit: cover; 
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.battery__optionalImg:hover {
+    transform: scale(1.05); 
+    opacity: 0.8;
 }
 
 .battery__info{
     display: flex;
     flex-direction: column;
-    gap:23px;
-    max-width: 281px;
+    gap:10px;
+    max-width: 350px;
     color:#FFFEFC ;
+    
 }
 
 .battery__info .battery__title{
     font-size: 30px;
     font-weight: 700;
-
 }
 
 .battery__desc{
-    font-size: 24px;
+    font-size: 20px;
     display: flex;
     flex-direction: column;
-    gap:9px;
+    gap:5px;
 }
 
-.battery__desc > p{
+.battery__spec > span{
     font-size: 16px;
-}
-
-.battery__sales{
-    background-color: #F9F9F9;
-    color:#5483EA;
-    font-size: 20px;
     font-weight: 600;
-    height: 55px;
-    width: 188px;
 }
 
-.battery__sales > img{
-    width: 25px;
+
+
+
+.battery__buy{
+    display: flex;
+    gap:20px;
+    align-items: flex-start;
 }
+
+.battery__offer{
+    margin-bottom: 28px;
+    margin-top:15px;
+    text-decoration: underline;
+    font-size: 20px;
+    text-decoration-color: #4F77F1;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 14px;
+}
+
+
+.battery__modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.battery__modal-content {
+    background: #F9F9F9;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 20px;
+    padding: 40px 20px;
+    position: relative;
+    min-height: 500px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 35px;
+    cursor: pointer;
+    color: #535353;
+}
+
+
