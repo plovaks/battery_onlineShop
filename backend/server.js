@@ -1,27 +1,39 @@
 const express = require('express');
-const {Pool} = require('pg');
+const { Pool } = require('pg');
 const cors = require('cors');
 require('dotenv').config();
+const path = require('path');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
+
 
 app.use(cors());
 app.use(express.json());
-
-const path = require('path');
 app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-
+// Настройка базы данных
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT || 5432,
+    connectionString: process.env.DATABASE_URL,
+    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
 });
 
-// получить все товары 
+// Проверка подключения к БД
+pool.connect((err, client, release) => {
+    if (err) {
+        console.error('Ошибка подключения к базе данных:', err.stack);
+    } else {
+        console.log('Подключено к PostgreSQL');
+        release();
+    }
+});
+
+// Корневой маршрут
+app.get('/', (req, res) => {
+    res.json({ message: 'API работает', status: 'ok' });
+});
+
+// Получить все товары 
 app.get('/api/products', async (req, res) => {
     try {
         const result = await pool.query(`
@@ -58,7 +70,7 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-//  получить один товар по ID
+// Получить один товар по ID
 app.get('/api/products/:id', async (req, res) => {
     const { id } = req.params;
     try {
@@ -100,7 +112,7 @@ app.get('/api/products/:id', async (req, res) => {
     }
 });
 
-// получить все категории
+// Получить все категории
 app.get('/api/categories', async (req, res) => {
     try {
         const result = await pool.query('SELECT * FROM categories ORDER BY id');
@@ -111,7 +123,7 @@ app.get('/api/categories', async (req, res) => {
     }
 });
 
-// получить товары по категории
+// Получить товары по категории
 app.get('/api/categories/:id/products', async (req, res) => {
     const { id } = req.params;
     try {
@@ -139,9 +151,8 @@ app.get('/api/categories/:id/products', async (req, res) => {
 });
 
 
-
-app.listen(PORT, () => {
-    console.log(`Сервер запущен на http://localhost:${PORT}`);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(` Сервер запущен на http://localhost:${PORT}`);
     console.log(`Проверь: http://localhost:${PORT}/api/products`);
+    console.log(` Статус: http://localhost:${PORT}/`);
 });
-
