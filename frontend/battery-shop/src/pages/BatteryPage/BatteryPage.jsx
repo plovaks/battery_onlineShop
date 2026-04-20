@@ -9,7 +9,7 @@ export default function BatteryPage({ isModal }) {
     const { id } = useParams(); 
     const [product, setProduct] = useState(null);
     const [activeImg, setActiveImg] = useState("");
-    const SERVER_URL = 'http://localhost:3000';
+    const SERVER_URL = 'https://serveronlineshop-production.up.railway.app';
     const navigate = useNavigate();
 
     useEffect(() => {

@@ -30,7 +30,7 @@ export default function Cart() {
                             <CartItem
                                 key={item.id}
                                 product={item} 
-                                img={item.images?.[0]?.url ? `http://localhost:3000${item.images[0].url}` : ""}
+                                img={item.images?.[0]?.url ? `https://serveronlineshop-production.up.railway.app${item.images[0].url}` : ""}
                                 name={`${item.model} ${item.name}`}
                                 capacity={item.specs?.[0]?.value}
                                 voltage={item.specs?.[2]?.value}

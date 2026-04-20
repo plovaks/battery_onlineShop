@@ -4,7 +4,7 @@ import CatalogItem from "../../components/CatalogItem/CatalogItem.jsx"
 import Filter from "../../components/Filters/Filter";
 import './Catalog.css';
 
-const SERVER_URL = 'http://serveronlineshop-production.up.railway.app';
+const SERVER_URL = 'https://serveronlineshop-production.up.railway.app';
 
 const specNameMap = {
     "Сопротивление": "Внутреннее сопротивление"
