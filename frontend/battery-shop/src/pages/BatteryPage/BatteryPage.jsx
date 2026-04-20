@@ -91,6 +91,7 @@ export default function BatteryPage({ isModal }) {
 
                 <div className="battery__order">
                     <AddToCart
+                        product={product} 
                         price={Math.trunc(product.price)}
                         salePrice={Math.trunc(product.price) - 10} 
                     />

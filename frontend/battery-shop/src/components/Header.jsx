@@ -6,8 +6,10 @@ import search from "../assets/icons/search.svg"
 import DropdownMenu from "./DropdownMenu/DropdownMenu";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
+import { useCart } from "./CartContext";
 
 export default function Header(){
+    const { uniqueCount } = useCart();
     return(
         <header>
                     <Link to='/' className="header__logo">
@@ -37,9 +39,17 @@ export default function Header(){
                             <button>
                                 <img className="icon header__icon--profile" src={profile} alt="profile icon" />
                             </button>
-                            <button>
-                                <img className="icon header__icon--cart" src={cart} alt="cart icon" />
-                            </button>
+                            <Link to='/cart' className="header__cart-link">
+                                <button className="header__cart-btn">
+                                    {uniqueCount > 0 && (
+                                        <span className="cart-badge-container">
+                                            {uniqueCount}
+                                        </span>
+                                    )}
+                                    <img className="icon header__icon--cart" src={cart} alt="cart icon" />
+                                </button>
+                            </Link>
+                            
                     </div>
                     </nav>
                     

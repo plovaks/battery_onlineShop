@@ -6,7 +6,7 @@ export default function DropdownMenu({children}){
 
     return(
         <div className="dropdown">
-            <div onClick={()=>setIsOpen(!isOpen)}>
+            <div onClick={()=>setIsOpen(!isOpen)} className="dropdown__menu">
                 Меню
             </div>
 

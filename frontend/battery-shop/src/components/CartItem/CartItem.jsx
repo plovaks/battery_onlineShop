@@ -1,36 +1,96 @@
-import React from "react";
-import bin from "../../assets/icons/bin.svg"
-import plusIcon from "../../assets/icons/plus.svg"
-import minusIcon from "../../assets/icons/minus.svg"
-import rubleBlue from "../../assets/icons/rubleBlue.svg"
-import "./CartItem.css"
-export default function CartItem(props){
-    return(
+import React, { useState } from "react";
+import { useCart } from "../CartContext";
+import bin from "../../assets/icons/bin.svg";
+import plusIcon from "../../assets/icons/plus.svg";
+import minusIcon from "../../assets/icons/minus.svg";
+import rubleBlue from "../../assets/icons/rubleBlue.svg";
+import "./CartItem.css";
+
+export default function CartItem({ product, img, name, capacity, voltage, resistance, value, price }) {
+    const { addToCart, removeFromCart } = useCart();
+    const [inputValue, setInputValue] = useState(value);
+
+    const handleMinus = () => {
+        if (value > 1) {
+            const newValue = value - 1;
+            addToCart(product, newValue);
+            setInputValue(newValue);
+        } else {
+            removeFromCart(product.id);
+        }
+    };
+
+    const handlePlus = () => {
+        const newValue = value + 1;
+        addToCart(product, newValue);
+        setInputValue(newValue);
+    };
+
+    const handleInputChange = (e) => {
+        let newValue = parseInt(e.target.value);
+        
+       
+        if (isNaN(newValue)) {
+            newValue = 1;
+        }
+        
+        
+        if (newValue < 1) {
+            newValue = 1;
+        }
+        
+        setInputValue(newValue);
+        addToCart(product, newValue);
+    };
+
+    const handleInputBlur = () => {
+        if (inputValue !== value) {
+            addToCart(product, inputValue);
+        }
+    };
+
+    return (
         <div className="cartItem">
-            <img src={props.img} alt="item image" className="cart__image"/>
+            <img src={img} alt={name} className="cart__image"/>
             <div className="cartItem__info">
-                 <h4 className="cartItem__title">{props.name}</h4>
+                <h4 className="cartItem__title">{name}</h4>
                 <p className="cartItem__desc">
-                    <span className="cartItem__capacity">{props.capacity} мАч, </span>
-                    <span className="cartItem__voltage">{props.voltage} В, </span>
-                    <span className="cartItem__resistance">{props.resistance} мОм</span>
+                    <span>{capacity} мАч, </span>
+                    <span>{voltage} В, </span>
+                    <span>{resistance} мОм</span>
                 </p>
             </div>
            
             <div className="cartItem__stepper">
-                <button className="cartItem__btn--minus" id="minus">
-                    <img src={minusIcon} alt="minus icon" />
+                <button className="cartItem__btn--minus" onClick={handleMinus}>
+                    <img src={minusIcon} alt="minus" />
                 </button>
-                <span className="stepper__value">{props.value}</span>
-                <button className="cartItem__btn--plus" id="plus">
-                    <img src={plusIcon} alt="plus icon" />
+                
+                <input 
+                    type="number" 
+                    className="stepper__input"
+                    value={inputValue}
+                    onChange={handleInputChange}
+                    onBlur={handleInputBlur}
+                    min="1"
+                />
+                
+                <button className="cartItem__btn--plus" onClick={handlePlus}>
+                    <img src={plusIcon} alt="plus" />
                 </button>
             </div>
+            
             <p className="cartItem__price">
-                {props.price}
-                <img src={rubleBlue} alt="" />
+                {price * value} 
+                <img src={rubleBlue} alt="ruble icon " />
             </p>
-            <img src={bin} alt="bin icon" />
+            
+            <button 
+                className="cartItem__bin-btn" 
+                onClick={() => removeFromCart(product.id)}
+            >
+                <img src={bin} alt="bin icon" />
+            </button>
         </div>
-    )
+    );
 }

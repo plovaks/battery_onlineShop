@@ -26,11 +26,12 @@
 }
 
 .purchase__addToCart{
-    border-radius: 17px;
+    border-radius: 10px;
     background-color:#5483EA ;
     font-size: 20px;
     color:FFFEFC;
     font-weight: 500;
+    padding: 10px 15px;
 }
 
 .purchase__inCart{

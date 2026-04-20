@@ -1,5 +1,6 @@
 .catalog{
     margin-top: 350px;
+    min-height: 70vh;
 }
 
 .catalog__title{

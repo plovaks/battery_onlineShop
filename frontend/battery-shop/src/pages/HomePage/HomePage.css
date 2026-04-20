@@ -2,6 +2,8 @@
     margin-block: 20px;
 }
 
+
+
 .header__container{
     position: relative;
     
@@ -28,6 +30,14 @@ header{
     margin-bottom: 15px;
     align-items: center;
     justify-content: space-between;
+    background-color: #FFFEFC;
+    position: fixed;
+    top: 0;
+    left:116px;
+    right: 116px;
+    
+    z-index: 1000; 
+    
 }
 
 .header__menu ul{
@@ -47,8 +57,31 @@ header{
     font-weight: 700;
 }
 
+.cart__circle{
+    width: 17px;
+    height: 17px;
+}
+
 .header__logo p:last-child{
     color:#E76F51;
+}
+
+.header__cart-btn{
+    position: relative;
+}
+
+.cart-badge-container{
+    position: absolute;
+    top: -2px;    /* Сдвигай вверх-вниз, чтобы кружок "сел" на иконку */
+    right: -2px;  /* Сдвигай влево-вправо */
+    
+    background-image: url('../../assets/icons/PlainCircle.svg'); 
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 16px;
+    color:#FFFDF5;
+    font-size: 13px;
 }
 
 nav{
@@ -62,6 +95,10 @@ nav{
     gap:7px;
 }
 
+.nav__user-actions  button{
+    cursor: pointer;
+}
+
 .main-page{
     background: linear-gradient(to right bottom,#549AEA,#5461EA);
     border-radius: 32px;
@@ -70,7 +107,7 @@ nav{
     padding-inline: 30px;
     padding-top: 15px;
     color:#FFFDF5;
-
+    margin-top: 80px;
 }
 
 .main-page__title{
