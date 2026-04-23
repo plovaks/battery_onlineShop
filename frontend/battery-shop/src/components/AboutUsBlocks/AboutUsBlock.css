@@ -32,8 +32,50 @@
     padding: 20px 15px;
     border: 2px #FAED7C solid;
     border-radius: 10px;
-    /* margin-top: 30px; */
 }
 
+
+@media (max-width:1441px) {
+    .aboutUs__container{
+        width:300px;
+    }
+
+    .aboutUs__img{
+        width: 250px;
+    }
+    .aboutUs__pros{
+        font-size: 18px;
+        max-width: 150px;
+    }
+    .aboutUs__pros{
+        font-size: 18px;
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 1024px){
+    .aboutUs__pros{
+        font-size: 16px;
+    }
+
+}
+@media (max-width: 768px){
+    .aboutUs__desc{
+        display: none;
+    }
+
+    .aboutUs__container{
+        width: 250px;
+    }
+
+    .aboutUs__img{
+        width: 320px;
+    }
+
+    .aboutUs__pros{
+        font-size: 18px;
+        
+    }
+}
 
 

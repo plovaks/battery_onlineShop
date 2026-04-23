@@ -1,5 +1,6 @@
 *{
   background: none;
+  box-sizing: border-box;
 }
 
 h1,h2,h3,h4,p,div,button,nav{
@@ -43,3 +44,19 @@ a{
   text-decoration: none;
   color:black;
 }
+
+
+@media (max-width:1024px){
+  html{
+    padding-inline: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  html{
+    padding-inline: 5px;
+  }
+  
+}
+
+

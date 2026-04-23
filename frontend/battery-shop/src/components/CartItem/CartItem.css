@@ -89,3 +89,13 @@
     width: 20px;
     height: 20px;
 }
+
+@media (max-width:768px) {
+    .cart__image{
+        display: none;
+    }
+    .cartItem{
+        grid-template-columns: 1fr 2fr 1fr 0.3fr;
+    }
+    
+}

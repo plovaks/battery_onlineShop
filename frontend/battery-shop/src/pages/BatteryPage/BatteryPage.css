@@ -1,89 +1,92 @@
-
-.battery__specs{
+.battery__specs {
     max-width: 700px;
     max-height: 520px;
-    background-color:#5483EA ;
+    background-color: #5483EA;
     border-radius: 20px;
     display: flex;
     align-items: center;
-    gap:10px;
+    gap: 10px;
     padding: 25px;
 }
-.battery__images{
+
+.battery__images {
     display: flex;
     flex-direction: column;
-    gap:15px;
+    gap: 15px;
     width: 260px;
     flex-shrink: 0;
     align-items: flex-start;
 }
 
-.battery__images .battery__mainImg{
+.battery__images .battery__mainImg {
     width: 100%;
     height: 225px;
     border-radius: 20px;
     object-fit: cover;
 }
 
-.battery__imgArr{
+.battery__imgArr {
     display: flex;
     justify-content: flex-start;
-    gap:10px;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.battery__optionalImg{
-    width: 55px;  
-    height: 55px; 
+.battery__optionalImg {
+    width: 55px;
+    height: 55px;
     border-radius: 8px;
-    object-fit: cover; 
+    object-fit: cover;
     cursor: pointer;
     flex-shrink: 0;
     transition: all 0.2s ease;
 }
 
 .battery__optionalImg:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
     opacity: 0.8;
 }
 
-.battery__info{
+.battery__info {
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
     max-width: 350px;
-    color:#FFFEFC ;
-    
+    color: #FFFEFC;
 }
 
-.battery__info .battery__title{
+.battery__info .battery__title {
     font-size: 30px;
     font-weight: 700;
 }
 
-.battery__desc{
+.battery__desc {
     font-size: 20px;
     display: flex;
     flex-direction: column;
-    gap:5px;
+    gap: 5px;
 }
 
-.battery__spec > span{
+.battery__spec > span {
     font-size: 16px;
     font-weight: 600;
 }
 
-
-
-
-.battery__buy{
+.battery__buy {
     display: flex;
-    gap:20px;
+    gap: 20px;
     align-items: flex-start;
+    flex-wrap: wrap;
 }
 
-.battery__offer{
+.battery__order {
+    flex: 1;
+    min-width: 250px;
+}
+
+.battery__offer {
     margin-bottom: 28px;
-    margin-top:15px;
+    margin-top: 15px;
     text-decoration: underline;
     font-size: 20px;
     text-decoration-color: #4F77F1;
@@ -91,6 +94,19 @@
     text-underline-offset: 14px;
 }
 
+.battery__sales {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 20px;
+}
+
+.battery__sales > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+}
 
 .battery__modal-overlay {
     position: fixed;
@@ -98,7 +114,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); 
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,6 +142,266 @@
     font-size: 35px;
     cursor: pointer;
     color: #535353;
+    z-index: 10;
 }
 
+.close-btn:hover {
+    color: #000;
+}
 
+.loading {
+    text-align: center;
+    padding: 50px;
+    font-size: 24px;
+    color: #5483EA;
+}
+
+/* ========== АДАПТИВНЫЕ МЕДИА ЗАПРОСЫ ========== */
+
+/* Планшеты (768px - 1024px) */
+@media (max-width: 1024px) {
+    .battery__specs {
+        max-width: 100%;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .battery__info .battery__title {
+        font-size: 26px;
+    }
+
+    .battery__desc {
+        font-size: 18px;
+    }
+
+    .battery__offer {
+        font-size: 18px;
+    }
+}
+
+/* Планшеты и большие телефоны (768px) */
+@media (max-width: 768px) {
+    .battery__specs {
+        flex-direction: column;
+        background-color: #5483EA;
+        padding: 20px;
+        max-height: none;
+    }
+
+    .battery__images {
+        width: 100%;
+        align-items: center;
+    }
+
+    .battery__images .battery__mainImg {
+        height: auto;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
+    }
+
+    .battery__imgArr {
+        justify-content: center;
+    }
+
+    .battery__optionalImg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .battery__info {
+        max-width: 100%;
+        text-align: center;
+        color: #FFFEFC;
+    }
+
+    .battery__info .battery__title {
+        font-size: 22px;
+    }
+
+    .battery__desc {
+        font-size: 16px;
+        text-align: left;
+    }
+
+    .battery__buy {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .battery__order {
+        width: 100%;
+    }
+
+    .battery__sales {
+        padding: 15px;
+    }
+
+    .battery__offer {
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .battery__sales > div:last-child {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Модальное окно */
+    .battery__modal-content {
+        width: 95%;
+        padding: 30px 15px;
+        min-height: auto;
+        border-radius: 15px;
+    }
+
+    .close-btn {
+        top: 10px;
+        right: 15px;
+        font-size: 30px;
+    }
+}
+
+/* Мобильные устройства (480px) */
+@media (max-width: 480px) {
+    .battery__specs {
+        padding: 15px;
+    }
+
+    .battery__info .battery__title {
+        font-size: 20px;
+    }
+
+    .battery__desc {
+        font-size: 14px;
+    }
+
+    .battery__spec > span {
+        font-size: 14px;
+    }
+
+    .battery__optionalImg {
+        width: 55px;
+        height: 55px;
+    }
+
+    .battery__offer {
+        font-size: 16px;
+        text-underline-offset: 10px;
+    }
+
+    .close-btn {
+        font-size: 28px;
+        top: 8px;
+        right: 12px;
+    }
+
+    .loading {
+        font-size: 18px;
+        padding: 30px;
+    }
+}
+
+/* Очень маленькие телефоны (375px) */
+@media (max-width: 375px) {
+    .battery__optionalImg {
+        width: 45px;
+        height: 45px;
+    }
+
+    .battery__info .battery__title {
+        font-size: 18px;
+    }
+
+    .battery__desc {
+        font-size: 12px;
+    }
+
+    .battery__spec > span {
+        font-size: 12px;
+    }
+
+    .battery__offer {
+        font-size: 14px;
+    }
+
+    .close-btn {
+        font-size: 24px;
+    }
+}
+
+/* Ландшафтная ориентация на телефонах */
+@media (max-width: 768px) and (orientation: landscape) {
+    .battery__specs {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .battery__images {
+        width: 40%;
+    }
+
+    .battery__info {
+        width: 55%;
+    }
+
+    .battery__images .battery__mainImg {
+        max-height: 200px;
+    }
+
+    .battery__optionalImg {
+        width: 45px;
+        height: 45px;
+    }
+
+    .battery__sales > div:last-child {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+}
+
+/* Планшеты в альбомной ориентации */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+    .battery__specs {
+        max-width: 100%;
+    }
+
+    .battery__images {
+        width: 240px;
+    }
+
+    .battery__info {
+        max-width: 400px;
+    }
+}
+
+/* Для экранов от 1025px до 1200px */
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .battery__specs {
+        max-width: 650px;
+    }
+    
+    .battery__info .battery__title {
+        font-size: 28px;
+    }
+}
+
+/* Большие экраны */
+@media (min-width: 1920px) {
+    .battery__modal-content {
+        max-width: 1200px;
+    }
+    
+    .battery__specs {
+        max-width: 800px;
+        padding: 35px;
+    }
+    
+    .battery__info .battery__title {
+        font-size: 36px;
+    }
+    
+    .battery__desc {
+        font-size: 22px;
+    }
+}

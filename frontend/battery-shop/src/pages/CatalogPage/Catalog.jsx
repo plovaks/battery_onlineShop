@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import CatalogItem from "../../components/CatalogItem/CatalogItem.jsx"
 import Filter from "../../components/Filters/Filter";
+import allFilters from "../../../src/assets/icons/allFilters.svg"
 import './Catalog.css';
 
 const SERVER_URL = 'https://serveronlineshop-production.up.railway.app';
@@ -13,6 +14,7 @@ const specNameMap = {
 export default function Catalog() {
     const [items, setItems] = useState([]);
     const [selectedFilters, setSelectedFilters] = useState({});
+    const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -39,7 +41,9 @@ export default function Catalog() {
         );
         return [...new Set(allValues)].sort((a, b) => parseFloat(a) - parseFloat(b));
     };
-
+    const resetFilters = () => {
+        setSelectedFilters({}); 
+    };
     const handleFilterChange = (filterName, value) => {
         setSelectedFilters(prev => {
             const currentSelected = prev[filterName] || [];
@@ -85,7 +89,39 @@ export default function Catalog() {
                     />
                 ))}
             </div>
-            
+            <div className="catalog__container">
+                <button 
+                className="filters__mobile"
+                onClick={() => setIsMobileFiltersOpen(true)}
+            >
+                <img src={allFilters} alt="" />
+                Все фильтры
+            </button>
+            {isMobileFiltersOpen && (
+                <div className="mobile-filters-overlay">
+                    <div className="mobile-filters-content">
+                    <div className="mobile-filters-header">
+                        <h3>Фильтры</h3>
+                        <button className="close-btn" onClick={() => setIsMobileFiltersOpen(false)}>✕</button>
+                    </div>
+          
+                    {filters.map(filter => (
+                        <Filter 
+                        key={filter.id} 
+                        name={filter.name} 
+                        options={getOptionsForFilter(filter.name)} 
+                        selectedOptions={selectedFilters[filter.name] || []} 
+                        onFilterChange={(value) => handleFilterChange(filter.name, value)} 
+                        />
+                    ))}
+          
+                    <button className="apply-btn" onClick={() => setIsMobileFiltersOpen(false)}>Применить</button>
+                    <button className="reset-btn" onClick={resetFilters}>
+                        Сбросить всё
+                    </button>
+                    </div>
+                </div>
+            )}
             <div className="catalog__sections">
                 <span className="catalog__sec--img">Фото</span>
                 <span className="catalog__sec--name">Название</span>
@@ -110,6 +146,8 @@ export default function Catalog() {
                     </Link>
                 ))}
             </div>
+            </div>
+            
         </div>
     );
 }

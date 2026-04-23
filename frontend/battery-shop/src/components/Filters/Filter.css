@@ -91,3 +91,11 @@
     transform: rotate(45deg);
 }
 
+@media (min-width:1025px) {
+    .filter__btn{
+        width: 200px;
+        font-size: 14px;
+    }
+   
+}
+

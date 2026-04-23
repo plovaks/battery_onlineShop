@@ -99,7 +99,7 @@ export default function BatteryPage({ isModal }) {
             </div>
 
             <div className="battery__sales">
-                <p className="battery__offer">Выгодные предложения:</p>
+                <div className="battery__offer">Выгодные предложения:</div>
                 <div>
                     <ProfitableOffers numOfGoods="100" pricePerGood={Math.trunc(product.price)-10} />
                     <ProfitableOffers numOfGoods="500" pricePerGood={Math.trunc(product.price)-15} />

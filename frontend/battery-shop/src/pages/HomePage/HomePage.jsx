@@ -14,7 +14,8 @@ export default function HomePage(){
         <main className="homePage" id='home'>
         <Header/>
         <div className="main-page">
-            <h1 className="main-page__title">POWER STORE</h1>
+            <div className="main-page__content">
+                <h1 className="main-page__title">POWER STORE</h1>
             <div className="main-page__text">
                 <h4 className="main-page__text--advantage">
                     Высококачественные 
@@ -27,7 +28,7 @@ export default function HomePage(){
                     <HashLink smooth to="/#catalog">
                         <button className="btn main-page__btn--buy">
                             К покупкам
-                            <img src={arrow} alt=" right arrow" />
+                            {/* <img src={arrow} alt=" right arrow"  className="img__btn--buy"/> */}
                         </button>
                     </HashLink>
                     
@@ -42,6 +43,8 @@ export default function HomePage(){
                 <img className="main-page__image__rightRed" src={rightRed} alt="right red battery" />
                 <img className="main-page__image__rightYellow" src={rightYellow} alt="right yellow battery" />
             </div>
+            </div>
+            
                 
             
         </div>
