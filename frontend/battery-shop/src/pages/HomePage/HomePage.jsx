@@ -6,7 +6,7 @@ import leftRed from "../../assets/images/main-page-leftRed.png"
 import leftYellow from "../../assets/images/main-page-leftYellow.png"
 import rightRed from "../../assets/images/main-page-rightRed.png"
 import rightYellow from "../../assets/images/main-page-rightYellow.png"
-import Header from "../../components/Header";
+import Header from "../../components/Header/Header";
 import './HomePage.css'
 
 export default function HomePage(){
@@ -27,8 +27,7 @@ export default function HomePage(){
                 <div className="main-page__btnSection">
                     <HashLink smooth to="/#catalog">
                         <button className="btn main-page__btn--buy">
-                            К покупкам
-                            {/* <img src={arrow} alt=" right arrow"  className="img__btn--buy"/> */}
+                            К покупкам{/* <img src={arrow} alt=" right arrow"  className="img__btn--buy"/> */}
                         </button>
                     </HashLink>
                     

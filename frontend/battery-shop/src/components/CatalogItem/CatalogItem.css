@@ -1,28 +1,33 @@
+
 .item {
     display: grid;
     grid-template-columns: 80px 2fr 1fr 1fr 1fr 100px 45px;
     align-items: center;
     background-color: #ECF5FF;
     padding: 7px 40px;
-    gap: 15px; 
-    text-align: center; 
-    cursor:pointer;
+    gap: 15px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
-.item__mobile{
+.item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(55, 138, 221, 0.18);
+    background-color: #D9ECFF;
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.item__mobile {
     display: none;
-}
-
-.item:hover{
-    transform: translateY(-4px); 
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); 
-    z-index: 10;              
-    border-radius: 8px; 
 }
 
 .item__name {
     text-align: left;
     font-weight: 500;
+    color: #1a1a1a;
 }
 
 .item__img {
@@ -31,20 +36,37 @@
     border-radius: 10px;
     object-fit: contain;
     justify-self: center;
+    transition: transform 0.25s ease;
 }
 
+.item:hover .item__img {
+    transform: scale(1.08);
+}
 
+.item__price {
+    font-weight: 700;
+    color: #5496ea;
+}
 
-@media (max-width: 1200px){
-    .item{
+.item__capacity,
+.item__voltage,
+.item__resistance {
+    color: #555;
+    font-size: 14px;
+}
+
+/* ── Мобилка ── */
+@media (max-width: 1200px) {
+    .item {
         display: none;
     }
-    .item__img{
+
+    .item__img {
         width: 30px;
         height: 30px;
     }
-    
-    .item__mobile{
+
+    .item__mobile {
         display: grid;
         grid-template-columns: 2fr 3.5fr 0.5fr;
         column-gap: 20px;
@@ -53,22 +75,27 @@
         padding: 15px 10px;
         cursor: pointer;
         font-size: 13px;
+        border-radius: 10px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
 
-    .item__mobile:hover{
-        transform: translateY(-4px); 
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12); 
-        z-index: 10;              
-        border-radius: 8px; 
+    .item__mobile:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 24px rgba(55, 138, 221, 0.18);
+        background-color: #D9ECFF;
+        z-index: 10;
+        border-radius: 10px;
     }
-    .item__mobile > .item__price{
-        font-weight: 600;
+
+    .item__mobile > .item__price {
+        font-weight: 700;
+        color: #185FA5;
         text-align: left;
-        /* font-size: 14px; */
     }
 
+    .item__mobile--characteristics {
+        color: #666;
+        font-size: 12px;
+        line-height: 1.6;
+    }
 }
-
-
-
-

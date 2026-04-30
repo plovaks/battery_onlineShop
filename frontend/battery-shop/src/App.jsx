@@ -5,12 +5,16 @@ import AboutPage from './pages/AboutPage/AboutPage'
 import Catalog from './pages/CatalogPage/Catalog'
 import BatteryPage from './pages/BatteryPage/BatteryPage'
 import Cart from "./pages/CartPage/Cart.jsx"
+import Profile from "./pages/ProfilePage/ProfilePage.jsx"
 import { CartProvider } from "./components/CartContext.jsx"
+import { AuthProvider } from "./components/AuthContext.jsx"
 function App() {
+
   const location = useLocation();
   const background = location.state?.background;
   return (
-    <CartProvider>
+    <AuthProvider>
+      <CartProvider>
 
         <Routes location={background || location}>
           <Route path="/" element={<Layout />}>
@@ -24,6 +28,7 @@ function App() {
             <Route path="catalog" element={<Catalog/>}/>
             <Route path="cart" element={<Cart />} />
             <Route path="product/:id" element={<BatteryPage />} />
+            <Route path="profile" element={<Profile />} />
           </Route>
       </Routes>
 
@@ -39,6 +44,8 @@ function App() {
         </Routes>
       )}
     </CartProvider>
+    </AuthProvider>
+    
     
   );
 }

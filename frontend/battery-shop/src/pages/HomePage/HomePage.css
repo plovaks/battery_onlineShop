@@ -34,6 +34,7 @@ header {
     right: 0;
     z-index: 1000;
     padding-inline: 10%;
+    padding-block:12px ;
 }
 
 .header__menu ul {
@@ -112,7 +113,7 @@ nav {
     padding-inline: 30px;
     padding-top: 15px;
     color: #FFFDF5;
-    margin-top: 80px;
+    margin-top: 100px;
     overflow: visible;
 }
 
@@ -168,8 +169,6 @@ nav {
 .main-page__sales {
     font-size: 19px;
 }
-
-/* Центральная картинка с 3D эффектом - поверх всего */
 .main-page__image--centered {
     position: absolute;
     width: 500px;
@@ -180,7 +179,7 @@ nav {
     pointer-events: none;
 }
 
-/* Декоративные элементы */
+
 .main-page__image__leftYellow {
     position: absolute;
     left: 33px;
@@ -253,8 +252,28 @@ nav {
     
     .main-page__image--centered {
        
-        left: 330px;
+        left: 30%;
         
+    }
+    .main-page__info{
+        gap:30px;
+        flex-direction: column;
+        align-items: flex-start;
+        /* left:10%; */
+    }
+
+    .main-page__text{
+        justify-content: space-around;
+        top:110px;
+    }
+    
+    .main-page__image__rightRed,
+    .main-page__image__leftRed{
+        z-index: 1;
+    }
+    .main-page__image__leftYellow{
+        width: 180px;
+        top:120px;
     }
 }
 
@@ -390,7 +409,7 @@ nav {
     }
 }
 
-/* Планшеты вертикально */
+
 @media (max-width: 768px) {
     .main-page {
         height: 550px;

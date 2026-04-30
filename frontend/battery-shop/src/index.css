@@ -8,9 +8,9 @@ h1,h2,h3,h4,p,div,button,nav{
   margin: 0;
   padding: 0;
 }
-
+/* #fffbf2 */
 html{
-  background-color: #FFFEFC;
+  background-color: white;
   margin: 0;
   padding-inline: 116px;
   font-family: 'Montserrat', 'sans-serif';
