@@ -5,6 +5,6 @@ meta:
     version: 20
 
 build:
-  command: npm install && npm run build
+  command: cd frontend/battery-shop && npm install && npm run build
   artifacts:
-    "dist/*": /
+    "frontend/battery-shop/dist/*": /
