@@ -9,10 +9,10 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import { useCart } from "../CartContext.jsx";
 import { useAuth } from "../AuthContext.jsx"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Header.css'
 
-export default function Header({ className }) {
+export default function Header({ className, needsVKPadding  }) {
     const { uniqueCount } = useCart();
     const location = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,6 +20,26 @@ export default function Header({ className }) {
     const navigate = useNavigate();
 
     const showDropdown = location.pathname === '/cart' || location.pathname === '/profile';
+
+    const [isVK, setIsVK] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        
+        const checkVK = () => {
+            const inVK = window.location.search.includes('vk_access_token') || 
+                        window.location.href.includes('vk.com') ||
+                        window.location.href.includes('vk\.com');
+            setIsVK(inVK);
+            
+            
+            setIsMobile(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
+        };
+        
+        checkVK();
+    }, []);
+
+    const headerStyle = needsVKPadding ? { paddingTop: '44px' } : {};
 
     const handleProfileClick = () => {
         if (user) {
@@ -34,8 +54,10 @@ export default function Header({ className }) {
         navigate('/');
     }
 
+    
+
     return (
-        <header className={className}>
+        <header className={className} style={headerStyle}>
             <Link to='/' className="header__logo">
                 <img className="header__logo--img" src={logo} alt="logo" />
                 <div className="header__logo--text">

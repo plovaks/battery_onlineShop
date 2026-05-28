@@ -7,6 +7,7 @@ import rubleBlue from "../../assets/icons/rubleBlue.svg";
 import "./CartItem.css";
 
 export default function CartItem({ product, img, name, capacity, voltage, resistance, value, price }) {
+    console.log("CartItem получил product:", product);
     const { addToCart, removeFromCart } = useCart();
     const [inputValue, setInputValue] = useState(value);
 
@@ -51,13 +52,13 @@ export default function CartItem({ product, img, name, capacity, voltage, resist
 
     return (
         <div className="cartItem">
-            <img src={img} alt={name} className="cart__image"/>
+            <img src={product.img} alt={name} className="cart__image"/>
             <div className="cartItem__info">
-                <h4 className="cartItem__title">{name}</h4>
+                <h4 className="cartItem__title">{product.name}</h4>
                 <p className="cartItem__desc">
-                    <span>{capacity} мАч, </span>
-                    <span>{voltage} В, </span>
-                    <span>{resistance} мОм</span>
+                    <span>{product.capacity} мАч, </span>
+                    <span>{product.voltage} В, </span>
+                    <span>{product.resistance} мОм</span>
                 </p>
             </div>
            

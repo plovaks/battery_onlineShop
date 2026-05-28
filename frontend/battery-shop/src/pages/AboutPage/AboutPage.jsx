@@ -1,47 +1,84 @@
-import React from "react"
-import AboutUsBlock from "../../components/AboutUsBlocks/AboutUsBlock"
-import block1 from "../../assets/images/about-block1.png"
-import block2 from "../../assets/images/about-block2.png"
-import './AboutPage.css'
+import React from "react";
+import "./AboutPage.css";
+import aboutUs from "../../assets/images/aboutUs.png";
+import tick from "../../assets/icons/tick.svg"
+import sale from "../../assets/icons/sale.svg"
+import people from "../../assets/icons/People.svg"
 
-export default function AboutPage(){
-    const blocksData = [
-        {
-            id:1,
-            img:block1,
-            innerText:"Оригинальная продукция",
-            description:"Только оригинальные аккумуляторы с гарантией. Все проверено."
-        },
-        {
-            id:2,
-            img:block2,
-            innerText:"Опт и розница",
-            description:"Специальные условия для оптовиков и приятные цены для розничных покупателей."
-        },
-        {
-            id:3,
-            img:block1,
-            innerText:"Без посредников",
-            description:"Мы сами привозим товар - никаких посредников и скрытых наценок."
-        },
-    ]
+export default function AboutPage() {
+  const advantages = [
+    {
+      id: "01",
+      icon: tick,
+      title: "Оригинальная продукция",
+      desc: "Только оригинальные аккумуляторы с гарантией. Все проверено.",
+      color: "blue"
+    },
+    {
+      id: "02",
+      icon: sale,
+      title: "Опт и розница",
+      desc: "Специальные условия для оптовиков и приятные цены для розничных покупателей.",
+      color: "yellow"
+    },
+    {
+      id: "03",
+      icon: people,
+      title: "Без посредников",
+      desc: "Мы сами привозим товар - никаких посредников и скрытых наценок.",
+      color: "blue"
+    }
+  ];
 
-    return(
-       
-        <main id="about" className="about__page">
-             <h1 className="about__title">НАШИ ПРЕИМУЩЕСТВА</h1>
-             <div className="about__blocks">
-                {blocksData.map(block => (
-                    <AboutUsBlock
-                        key={block.id}
-                        img={block.img}
-                        innerText={block.innerText}
-                        description={block.description}
-                    />
-                ))
-                    
-                }
-             </div>
-        </main>
-    )
+  return (
+    <section className="about">
+
+      <div className="about__wrapper">
+
+        <h2 className="about__title">
+          НАШИ ПРЕИМУЩЕСТВА
+        </h2>
+
+        <div className="about__grid">
+
+          <div className="about__cards">
+
+            {advantages.map(item => (
+              <div className="advantage-card" key={item.id}>
+
+                <div className={`advantage-icon ${item.color}`}>
+                  <img src={item.icon} alt="icon"/>
+                </div>
+
+                <div className="advantage-content">
+                  <h3>{item.title}</h3>
+                  <p>{item.desc}</p>
+                </div>
+
+                <div className="advantage-number">
+                  {item.id}
+                </div>
+
+              </div>
+            ))}
+
+          </div>
+
+          <div className="about__image">
+
+            <img
+              src={aboutUs}
+              alt="Аккумулятор"
+            />
+
+          </div>
+
+        </div>
+
+        <div className="about__dots"></div>
+
+      </div>
+
+    </section>
+  );
 }

@@ -1,7 +1,10 @@
+/* ─── BASE (desktop ≥ 1257px) ─────────────────────────────────────────────── */
+/* колонки: картинка | инфо | степпер | цена | корзина */
 .cartItem {
     display: grid;
-    grid-template-columns: 80px 1fr 150px 100px 40px;
+    grid-template-columns: 80px 1fr 160px 110px 44px;
     align-items: center;
+    gap: 0 12px;
     padding-block: 22px;
     border-top: 1px #8E8E8E solid;
 }
@@ -20,17 +23,31 @@
     align-items: flex-start;
 }
 
+.cartItem__title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.cartItem__desc {
+    font-size: 13px;
+    color: #8E8E8E;
+    margin: 0;
+}
+
+/* степпер */
 .cartItem__stepper {
     border: 1px solid black;
     border-radius: 20px;
     padding: 6px 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
     justify-self: center;
 }
 
 .stepper__input {
-    width: 45px;
+    width: 36px;
     text-align: center;
     border: none;
     font-size: 16px;
@@ -67,6 +84,7 @@
     display: block;
 }
 
+/* цена */
 .cartItem__price {
     display: flex;
     align-items: center;
@@ -74,14 +92,17 @@
     font-weight: 600;
     gap: 2px;
     color: #6083F1;
+    justify-self: center;
 }
 
+/* корзина */
 .cartItem__bin-btn {
     background: none;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-self: center;
     padding: 4px;
 }
 
@@ -90,12 +111,98 @@
     height: 20px;
 }
 
-@media (max-width:768px) {
-    .cart__image{
+
+/* ─── 1256px: убираем картинку, подгоняем колонки под Cart.css ─────────────── */
+@media (max-width: 1256px) {
+    /* Cart.css переключает cart__headlines на 4 колонки:
+       инфо | степпер | цена | корзина
+       grid-template-columns: 2fr 1fr 1fr 0.3fr  */
+    .cartItem {
+        grid-template-columns: 2fr 1fr 1fr 0.3fr;
+    }
+
+    /* прячем картинку — она убирается из потока */
+    .cart__image {
         display: none;
     }
-    .cartItem{
-        grid-template-columns: 1fr 2fr 1fr 0.3fr;
+
+    .cartItem__price {
+        justify-self: center;
     }
-    
+
+    .cartItem__bin-btn {
+        justify-self: center;
+    }
+}
+
+
+/* ─── 768px: компактный вид ─────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .cartItem {
+        grid-template-columns: 2fr 1fr 1fr 0.3fr;
+        gap: 0 8px;
+    }
+}
+
+
+/* ─── 480px: мобайл — вертикальный стек ───────────────────────────────────── */
+@media (max-width: 480px) {
+    /* На мобайле cart__headlines тоже прячется (см. Cart.css),
+       поэтому делаем простой flex-стек внутри item */
+    .cartItem {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        padding-block: 18px;
+    }
+
+    /* нижняя строка: степпер + цена + корзина в ряд */
+    .cartItem__stepper {
+        justify-self: unset;
+    }
+
+    .cartItem__price {
+        justify-self: unset;
+        font-size: 15px;
+    }
+
+    .cartItem__bin-btn {
+        justify-self: unset;
+    }
+
+    /* группируем степпер, цену и корзину */
+    .cartItem__stepper,
+    .cartItem__price,
+    .cartItem__bin-btn {
+        align-self: center;
+    }
+
+    /* обёртка для нижней строки — создаём через псевдо-flex-контейнер */
+    .cartItem {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        grid-template-rows: auto auto;
+        align-items: center;
+        gap: 10px 12px;
+    }
+
+    .cartItem__info {
+        grid-column: 1 / -1; /* инфо на всю ширину сверху */
+    }
+
+    .cartItem__stepper {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .cartItem__price {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .cartItem__bin-btn {
+        grid-column: 3;
+        grid-row: 2;
+    }
 }

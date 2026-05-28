@@ -92,6 +92,7 @@ export default function Cart() {
                                         resistance={item.specs?.[1]?.value}
                                         value={item.quantity}
                                         price={item.price}
+                                        
                                     />
                                 ))}
                             </>
@@ -111,7 +112,7 @@ export default function Cart() {
                             {cart.map((item) => (
                                 <Order
                                     key={item.id}
-                                    orderName={item.model}
+                                    orderName={item.name}
                                     orderPrice={item.price * item.quantity}
                                 />
                             ))}
@@ -125,7 +126,7 @@ export default function Cart() {
                             disabled={cart.length === 0 || loading}
                             onClick={handlePay}
                         >
-                            {loading ? 'Оформляем...' : 'Оплатить'}
+                            {loading ? 'Оформляем...' : 'Оформить'}
                         </button>
                         {!user && cart.length > 0 && (
                             <p className="cart__auth-hint">

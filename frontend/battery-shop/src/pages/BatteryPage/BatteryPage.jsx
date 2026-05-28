@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect, useRef } from "react"; 
 import { useParams, useNavigate } from "react-router-dom"; 
 import './BatteryPage.css'
-import arrowBlue from "../../assets/icons/arrowBlue.svg"
 import AddToCart from "../../components/AddToCart/AddToCart";
-import ProfitableOffers from "../../components/ProfitableOffers/ProfitableOffers";
 
 export default function BatteryPage({ isModal }) {
     const { id } = useParams(); 
     const [product, setProduct] = useState(null);
     const [activeImg, setActiveImg] = useState("");
-    const SERVER_URL = 'https://serveronlineshop-production.up.railway.app';
+    const SERVER_URL = 'https://power-store-plovaks.amvera.io';
     const navigate = useNavigate();
+
+    const imgArrRef = useRef(null);
+    const [showLeft, setShowLeft] = useState(false);
+    const [showRight, setShowRight] = useState(false);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -30,32 +32,51 @@ export default function BatteryPage({ isModal }) {
     }, [id]);
 
     useEffect(() => {
-    
-    if (isModal) {
-        document.body.style.overflow = "hidden";
-    }
-
-   
-    return () => {
-        document.body.style.overflow = "auto";
-    };
+        if (isModal) {
+            document.body.style.overflow = "hidden";
+        }
+        return () => {
+            document.body.style.overflow = "auto";
+        };
     }, [isModal]); 
 
-    const handleClose = (e) => {
-        if (e.target.classList.contains('battery__modal-overlay') || e.target.classList.contains('close-btn')) {
-            navigate(-1); 
-        }
+    useEffect(() => {
+        const el = imgArrRef.current;
+        if (!el) return;
+        const checkArrows = () => {
+            setShowLeft(el.scrollLeft > 4);
+            setShowRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+        };
+        checkArrows();
+        el.addEventListener('scroll', checkArrows);
+        window.addEventListener('resize', checkArrows);
+        return () => {
+            el.removeEventListener('scroll', checkArrows);
+            window.removeEventListener('resize', checkArrows);
+        };
+    }, [product]);
+
+    const scroll = (dir) => {
+        imgArrRef.current?.scrollBy({ left: dir * 80, behavior: 'smooth' });
     };
+
+const handleClose = () => {
+  navigate(-1);
+};
+
+   const handleOverlayClick = (e) => {
+  if (e.target.classList.contains('battery__modal-overlay')) {
+    handleClose();
+  }
+};
 
     if (!product) {
         return <div className="loading">Загрузка данных...</div>;
     }
 
-    
     const content = (
         <div className="battery__container">
-           
-            {isModal && <button className="close-btn" onClick={() => navigate(-1)}>×</button>}
+            {isModal && <button className="close-btn" onClick={handleClose}>×</button>}
             
             <div className="battery__buy">
                 <div className="battery__specs">
@@ -65,25 +86,35 @@ export default function BatteryPage({ isModal }) {
                             alt="battery main" 
                             className="battery__mainImg"
                         />
-                        <div className="battery__imgArr">
-                            {product.images?.map((img, index) => (
-                                <img 
-                                    key={index}
-                                    src={`${SERVER_URL}${img.url}`} 
-                                    alt="extra" 
-                                    className={`battery__optionalImg ${activeImg === `${SERVER_URL}${img.url}` ? 'active-thumb' : ''}`}
-                                    onClick={() => setActiveImg(`${SERVER_URL}${img.url}`)}
-                                />
-                            ))}
+                        <div className="battery__imgArr-wrapper">
+                            {showLeft && (
+                                <button className="imgArr__btn imgArr__btn--left" onClick={() => scroll(-1)}>‹</button>
+                            )}
+                            <div className="battery__imgArr" ref={imgArrRef}>
+                                {product.images?.map((img, index) => (
+                                    <img 
+                                        key={index}
+                                        src={`${SERVER_URL}${img.url}`} 
+                                        alt="extra" 
+                                        className={`battery__optionalImg ${activeImg === `${SERVER_URL}${img.url}` ? 'active-thumb' : ''}`}
+                                        onClick={() => setActiveImg(`${SERVER_URL}${img.url}`)}
+                                    />
+                                ))}
+                            </div>
+                            {showRight && (
+                                <button className="imgArr__btn imgArr__btn--right" onClick={() => scroll(1)}>›</button>
+                            )}
                         </div>
                     </div>
 
                     <div className="battery__info">
-                        <h3 className="battery__title"> {product.name} {product.model}</h3>
+                        <h3 className="battery__title">{product.name} {product.model}</h3>
                         <div className="battery__desc">
                             Характеристики:
-                            {product.specs.map((spec, index) =>(
-                                <p key={index} className="battery__spec"><span>{spec.name} :</span> {spec.value} {spec.unit}</p>
+                            {product.specs.map((spec, index) => (
+                                <p key={index} className="battery__spec">
+                                    <span>{spec.name} :</span> {spec.value} {spec.unit}
+                                </p>
                             ))}
                         </div>
                     </div>
@@ -97,19 +128,11 @@ export default function BatteryPage({ isModal }) {
                     />
                 </div>
             </div>
-
-            <div className="battery__sales">
-                <div className="battery__offer">Выгодные предложения:</div>
-                <div>
-                    <ProfitableOffers numOfGoods="100" pricePerGood={Math.trunc(product.price)-10} />
-                    <ProfitableOffers numOfGoods="500" pricePerGood={Math.trunc(product.price)-15} />
-                    <ProfitableOffers numOfGoods="1000" pricePerGood={Math.trunc(product.price)-25} />
-                </div>
-            </div>
         </div>
     );
+
     return isModal ? (
-        <div className="battery__modal-overlay" onClick={handleClose}>
+        <div className="battery__modal-overlay" onClick={handleOverlayClick}>
             <div className="battery__modal-content">
                 {content}
             </div>

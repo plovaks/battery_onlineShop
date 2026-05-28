@@ -1,19 +1,18 @@
 {
-  "homepage": "https://plovaks.github.io/battery_onlineShop",
   "name": "battery-shop",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev": "concurrently \"vite\" \"cd ../../backend && node server.js\"",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vkontakte/vk-bridge": "^2.15.11",
+    "@vkontakte/vk-bridge": "^2.15.12",
+    "@vkontakte/vkui": "^8.2.0",
+    "framer-motion": "^12.38.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-router-dom": "^7.14.0",

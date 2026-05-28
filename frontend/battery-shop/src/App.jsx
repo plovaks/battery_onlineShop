@@ -8,14 +8,15 @@ import Cart from "./pages/CartPage/Cart.jsx"
 import Profile from "./pages/ProfilePage/ProfilePage.jsx"
 import { CartProvider } from "./components/CartContext.jsx"
 import { AuthProvider } from "./components/AuthContext.jsx"
-function App() {
 
+
+
+function App() {
   const location = useLocation();
   const background = location.state?.background;
   return (
     <AuthProvider>
       <CartProvider>
-
         <Routes location={background || location}>
           <Route path="/" element={<Layout />}>
             <Route index element={

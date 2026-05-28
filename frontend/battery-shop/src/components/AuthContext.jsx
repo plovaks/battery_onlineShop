@@ -1,17 +1,13 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-
 const AuthContext = createContext();
-
 export function AuthProvider({ children }) {
-
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-
-    
     useEffect(() => {
+        const hasConsent = localStorage.getItem('privacyConsent');
+        if (!hasConsent) return; 
         const savedUser = localStorage.getItem('user');
         const refreshToken = localStorage.getItem('refreshToken');
-
         if (savedUser && refreshToken) {
             fetch(`${import.meta.env.VITE_API_URL}/api/auth/refresh`, {
                 method: 'POST',

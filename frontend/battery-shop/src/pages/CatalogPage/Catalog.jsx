@@ -5,7 +5,7 @@ import Filter from "../../components/Filters/Filter";
 import allFilters from "../../../src/assets/icons/allFilters.svg"
 import './Catalog.css';
 
-const SERVER_URL = 'https://serveronlineshop-production.up.railway.app';
+const SERVER_URL = 'https://power-store-plovaks.amvera.io';
 
 const specNameMap = {
     "Сопротивление": "Внутреннее сопротивление"
@@ -78,7 +78,8 @@ export default function Catalog() {
     return (
         <div className="catalog" id='catalog'>
             <h1 className="catalog__title">КАТАЛОГ ТОВАРОВ</h1>
-            <div className="catalog__filters">
+            <div className="catalog__wrapper">
+                <div className="catalog__filters">
                 {filters.map(filter => (
                     <Filter 
                         key={filter.id} 
@@ -136,6 +137,7 @@ export default function Catalog() {
                 {filteredItems.map(item => (
                     <Link to={`/product/${item.id}`} key={item.id} state={{ background: location }}>
                         <CatalogItem 
+                            id={item.id}
                             img={item.images?.length > 0 ? `${SERVER_URL}${item.images[0].url}` : ''} 
                             name={`${item.model} ${item.name}`} 
                             capcity={item.specs.find(s => s.name === "Емкость")?.value} 
@@ -147,6 +149,8 @@ export default function Catalog() {
                 ))}
             </div>
             </div>
+            </div>
+            
             
         </div>
     );
