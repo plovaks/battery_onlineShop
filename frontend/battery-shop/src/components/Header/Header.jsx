@@ -12,12 +12,13 @@ import { useAuth } from "../AuthContext.jsx"
 import { useState, useEffect } from 'react'
 import './Header.css'
 
-export default function Header({ className, needsVKPadding  }) {
+export default function Header({ className, needsVKPadding }) {
     const { uniqueCount } = useCart();
     const location = useLocation();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { user, logout } = useAuth();
+    const { user, token, logout } = useAuth();
     const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const showDropdown = location.pathname === '/cart' || location.pathname === '/profile';
 
@@ -25,19 +26,40 @@ export default function Header({ className, needsVKPadding  }) {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        
         const checkVK = () => {
             const inVK = window.location.search.includes('vk_access_token') || 
                         window.location.href.includes('vk.com') ||
                         window.location.href.includes('vk\.com');
             setIsVK(inVK);
             
-            
             setIsMobile(/Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
         };
         
         checkVK();
     }, []);
+
+    // Проверка прав администратора
+    useEffect(() => {
+        const checkAdminStatus = async () => {
+            if (user && token) {
+                try {
+                    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/customer/me`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        setIsAdmin(data.is_admin || false);
+                    }
+                } catch (err) {
+                    console.error('Ошибка проверки прав администратора:', err);
+                }
+            } else {
+                setIsAdmin(false);
+            }
+        };
+        
+        checkAdminStatus();
+    }, [user, token]);
 
     const headerStyle = needsVKPadding ? { paddingTop: '44px' } : {};
 
@@ -54,11 +76,33 @@ export default function Header({ className, needsVKPadding  }) {
         navigate('/');
     }
 
-    
+    // Функция для прокрутки наверх
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    // Обработчик клика по логотипу
+    const handleLogoClick = (e) => {
+        if (location.pathname === '/') {
+            e.preventDefault();
+            scrollToTop();
+        } else {
+            setTimeout(() => {
+                scrollToTop();
+            }, 100);
+        }
+    };
 
     return (
         <header className={className} style={headerStyle}>
-            <Link to='/' className="header__logo">
+            <Link 
+                to='/' 
+                className="header__logo"
+                onClick={handleLogoClick}
+            >
                 <img className="header__logo--img" src={logo} alt="logo" />
                 <div className="header__logo--text">
                     <p className="header__logo--name">Power</p>
@@ -77,12 +121,26 @@ export default function Header({ className, needsVKPadding  }) {
 
             <nav className="header__menu">
                 <ul>
-                    <li><HashLink smooth to="/#home">Главная</HashLink></li>
-                    <li className="">
+                    <li>
+                        <Link 
+                            to="/" 
+                            onClick={() => {
+                                if (location.pathname === '/') {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                }
+                            }}
+                        >
+                            Главная
+                        </Link>
+                    </li>
+                    <li className="dropdown-container">
                         <DropdownMenu>
                             <HashLink smooth to="/#about">О нас</HashLink>
                             <HashLink smooth to="/#catalog">Каталог</HashLink>
                             <Link to='/cart'>Корзина</Link>
+                            {isAdmin && (
+                                <Link to="/admin">Админ панель</Link>
+                            )}
                         </DropdownMenu>
                     </li>
                 </ul>

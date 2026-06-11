@@ -1,0 +1,10 @@
+meta:
+  environment: node
+  toolchain:
+    name: browser
+    version: 20
+
+build:
+  artifacts:
+    "dist/*": /
+    "nginx.conf": /etc/nginx/conf.d/default.conf
