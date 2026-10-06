@@ -5,10 +5,12 @@ import { useCart } from "../CartContext";
 import './AddToCart.css';
 
 export default function AddToCart({ product, price, salePrice }) {
-    const { addToCart, cart } = useCart();
+    const { addToCart, updateQuantity, cart } = useCart();
     const navigate = useNavigate();
     
     const inCart = cart.find(item => item.id === product.id);
+    const maxStock = product.stock || 0;
+    const isOutOfStock = maxStock <= 0;
     
     const [isAdded, setIsAdded] = useState(!!inCart);
     const [count, setCount] = useState(inCart ? inCart.quantity : 1);
@@ -24,34 +26,62 @@ export default function AddToCart({ product, price, salePrice }) {
     }, [inCart]);
 
     const handleAddClick = () => {
+        if (isOutOfStock) {
+            alert("Товар отсутствует на складе");
+            return;
+        }
         setIsAdded(true);
-        addToCart(product, count); 
+        addToCart(product, count);
     };
 
     const updateCount = (newCount) => {
-        const val = Math.max(1, Number(newCount));
+        let val = Math.max(1, Number(newCount));
+        if (val > maxStock && maxStock > 0) {
+            val = maxStock;
+        }
         setCount(val);
-        if (isAdded) {
-            addToCart(product, val); 
+        if (isAdded && inCart) {
+            updateQuantity(product.id, val, maxStock);
+        } else if (isAdded && !inCart) {
+            addToCart(product, val);
         }
     };
 
     const handleInputChange = (e) => {
         let value = e.target.value;
-        // Удаляем все нецифровые символы
         value = value.replace(/\D/g, '');
         
         if (value === "") {
             setCount("");
         } else {
-            updateCount(value);
+            updateCount(parseInt(value, 10));
         }
     };
 
-    // Переход в корзину
     const goToCart = () => {
         navigate('/cart');
     };
+
+    // Если товара нет в наличии 
+    if (isOutOfStock) {
+        return (
+            <div className="purchase__container">
+                <p className="purchase__price">
+                    {price} <img src={ruble} alt="ruble" />
+                </p>
+                <p className="out-of-stock-message" style={{ color: '#dc2626', fontSize: '14px', fontWeight: '500' }}>
+                    Нет в наличии
+                </p>
+                <button 
+                    className="btn purchase__addToCart" 
+                    disabled={true}
+                    style={{ opacity: 0.5, cursor: 'not-allowed', backgroundColor: '#ccc' }}
+                >
+                    Добавить в корзину
+                </button>
+            </div>
+        );
+    }
 
     if (!isAdded) {
         return (
@@ -59,8 +89,10 @@ export default function AddToCart({ product, price, salePrice }) {
                 <p className="purchase__price">
                     {price} <img src={ruble} alt="ruble" />
                 </p>
-                <p className="purchase__sales">{salePrice}р/шт при покупке от 100шт</p>
-                <button className="btn purchase__addToCart" onClick={handleAddClick}>
+                <button 
+                    className="btn purchase__addToCart" 
+                    onClick={handleAddClick}
+                >
                     Добавить в корзину
                 </button>
             </div>
@@ -72,13 +104,24 @@ export default function AddToCart({ product, price, salePrice }) {
             <p className="purchase__price">
                 {price} <img src={ruble} alt="ruble" />
             </p>
-            <p className="purchase__sales">{salePrice}р/шт при покупке от 100шт</p>
+            {salePrice && (
+                <p className="purchase__sales">{salePrice}р/шт при покупке от 100шт</p>
+            )}
+            <p className="in-stock-message" style={{ color: '#10b981', fontSize: '12px', marginTop: '4px' }}>
+                В наличии: {maxStock} шт.
+            </p>
             <div className="counter__wrapper">
                 <button className="btn purchase__inCart" onClick={goToCart}>
                     В корзине 
                 </button>
                 <div className="purchase__counter">
-                    <button className="counter__btn" onClick={() => updateCount(count - 1)}>-</button>
+                    <button 
+                        className="counter__btn" 
+                        onClick={() => updateCount(count - 1)}
+                        disabled={count <= 1}
+                    >
+                        -
+                    </button>
                     <input
                         type="text"
                         value={count}
@@ -86,7 +129,13 @@ export default function AddToCart({ product, price, salePrice }) {
                         onBlur={() => { if (!count) updateCount(1); }}
                         inputMode="numeric"
                     />
-                    <button className="counter__btn" onClick={() => updateCount(count + 1)}>+</button>
+                    <button 
+                        className="counter__btn" 
+                        onClick={() => updateCount(count + 1)}
+                        disabled={count >= maxStock}
+                    >
+                        +
+                    </button>
                 </div>
             </div>
         </div>
