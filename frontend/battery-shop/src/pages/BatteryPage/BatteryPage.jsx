@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import './BatteryPage.css'
 import AddToCart from "../../components/AddToCart/AddToCart";
 
-const SERVER_URL = 'https://power-store-plovaks.amvera.io';
+const SERVER_URL = '';
 
 export default function BatteryPage({ isModal }) {
     const { id } = useParams(); 
@@ -22,8 +22,15 @@ export default function BatteryPage({ isModal }) {
                 if (!response.ok) throw new Error("Товар не найден");
                 const data = await response.json();
                 setProduct(data);
+                
                 if (data.images?.length > 0) {
-                    setActiveImg(`${SERVER_URL}${data.images[0].url}`);
+                    
+                    const firstImgUrl = data.images[0].url;
+                    setActiveImg(
+                        firstImgUrl.startsWith('http') 
+                            ? firstImgUrl 
+                            : `${window.location.origin}${firstImgUrl}`
+                    );
                 }
             } catch (error) {
                 console.error("Ошибка загрузки товара:", error);

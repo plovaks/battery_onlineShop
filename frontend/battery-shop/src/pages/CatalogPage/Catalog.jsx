@@ -5,7 +5,7 @@ import Filter from "../../components/Filters/Filter";
 import allFilters from "../../../src/assets/icons/allFilters.svg"
 import './Catalog.css';
 
-const SERVER_URL = 'https://power-store-plovaks.amvera.io';
+const SERVER_URL = '';
 
 const specNameMap = {
     "Сопротивление": "Внутреннее сопротивление"
@@ -148,7 +148,13 @@ export default function Catalog() {
                                 <Link to={`/product/${item.id}`} key={item.id} state={{ background: location }}>
                                     <CatalogItem 
                                         id={item.id}
-                                        img={item.images?.length > 0 ? `${SERVER_URL}${item.images[0].url}` : ''}
+                                        img={
+                                            item.images?.length > 0 
+                                                ? (item.images[0].url.startsWith('http') 
+                                                    ? item.images[0].url 
+                                                    : `${window.location.origin}${item.images[0].url}`)
+                                                : ''
+                                        }
                                         name={`${item.model} ${item.name}`} 
                                         capcity={item.specs.find(s => s.name === "Емкость")?.value} 
                                         voltage={item.specs.find(s => s.name === "Напряжение")?.value} 

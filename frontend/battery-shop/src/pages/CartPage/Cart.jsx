@@ -8,7 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Header from "../../components/Header/Header";
 import "./Cart.css";
 
-const SERVER_URL = 'https://power-store-plovaks.amvera.io';
+const SERVER_URL = '';
+const BASE_URL = import.meta.env.VITE_API_URL || '';
 
 export default function Cart() {
     const { cart, clearCart } = useCart();
@@ -40,7 +41,7 @@ export default function Cart() {
                 quantity: item.quantity
             }));
 
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/api/orders`, {
+            const res = await fetch(`${BASE_URL}/api/orders`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -87,7 +88,13 @@ export default function Cart() {
                                     <CartItem
                                         key={item.id}
                                         product={item}
-                                        img={item.images?.[0]?.url ? `${SERVER_URL}${item.images[0].url}` : ""}
+                                        img={
+                                            item.images?.[0]?.url 
+                                                ? (item.images[0].url.startsWith('http') 
+                                                    ? item.images[0].url 
+                                                    : `${window.location.origin}${item.images[0].url}`)
+                                                : ""
+                                        }
                                         name={`${item.model} ${item.name}`}
                                         capacity={item.specs?.[0]?.value}
                                         voltage={item.specs?.[2]?.value}

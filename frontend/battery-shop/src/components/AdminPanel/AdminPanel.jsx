@@ -4,10 +4,11 @@ import './AdminPanel.css';
 import editIcon from "../../assets/icons/edit.svg"
 import deleteIcon from "../../assets/icons/delete.svg"
 
-const SERVER_URL = 'https://power-store-plovaks.amvera.io';
+const SERVER_URL = '';
+const BASE_URL = import.meta.env.VITE_API_URL || '';
 
 export default function AdminPanel() {
-    const { user } = useAuth(); // ← убрали token, оставили user (или можно просто useAuth())
+    const { user } = useAuth(); 
     const [users, setUsers] = useState([]);
     const [orders, setOrders] = useState([]);
     const [products, setProducts] = useState([]);
@@ -34,7 +35,7 @@ export default function AdminPanel() {
     const getImageUrl = (url) => {
         if (!url) return '';
         if (url.startsWith('http')) return url;
-        return `${SERVER_URL}${url}`;
+        return `${window.location.origin}${url}`; 
     };
 
     useEffect(() => {
