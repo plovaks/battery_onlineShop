@@ -4,11 +4,6 @@ meta:
     name: npm
     version: 18
 
-build:
-  command: npm install
-  additionalCommands: echo "Зависимости установлены"
-
 run:
-  command: node server.js
-  persistenceMount: /data
+  scriptName: server.js
   containerPort: 3000
